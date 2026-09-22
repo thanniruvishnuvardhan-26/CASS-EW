@@ -1,0 +1,44 @@
+# ================================
+# CASS-EW Git Ignore
+# ================================
+
+# SIH dataset
+scan/
+train_scan/
+val_scan/
+test_scan/
+
+# HDF5 datasets
+*.h5
+*.hdf5
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Machine learning model files
+*.pkl
+*.pickle
+*.joblib
+*.pt
+*.pth
+*.onnx
+
+# Logs
+*.log
+
+# Jupyter
+.ipynb_checkpoints/
+
+# VS Code local settings
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
