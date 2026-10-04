@@ -1,0 +1,824 @@
+{
+  "config_0.h5": {
+    "global_attributes": {},
+    "num_records": 169617,
+    "features": {
+      "ToA": {
+        "min": 200142.53125,
+        "max": 29195164.0,
+        "mean": 14169203.0,
+        "median": 15332074.0,
+        "dtype": "float32",
+        "num_unique": 156375
+      },
+      "Frequency": {
+        "min": 10.364845275878906,
+        "max": 10999.5732421875,
+        "mean": 5389.6494140625,
+        "median": 4145.73193359375,
+        "dtype": "float32",
+        "num_unique": 139666
+      },
+      "PulseWidth": {
+        "min": 0.006912678480148315,
+        "max": 346.27020263671875,
+        "mean": 7.8487229347229,
+        "median": 0.8754443526268005,
+        "dtype": "float32",
+        "num_unique": 168541
+      },
+      "AoA": {
+        "min": -179.9942169189453,
+        "max": 179.986572265625,
+        "mean": 18.295398712158203,
+        "median": 48.9871826171875,
+        "dtype": "float32",
+        "num_unique": 168125
+      },
+      "Amplitude": {
+        "min": -170.47882080078125,
+        "max": -1.2513389587402344,
+        "mean": -87.4520034790039,
+        "median": -92.8993911743164,
+        "dtype": "float32",
+        "num_unique": 165971
+      }
+    },
+    "toa_diffs": {
+      "min": 0.0,
+      "max": 822208.0,
+      "median": 38.0,
+      "mean": 170.94508361816406
+    },
+    "labels": {
+      "num_labels": 169617,
+      "unique_count": 72,
+      "unique_values": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9,
+        10,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "dtype": "int8"
+    },
+    "receiver": {
+      "attributes": {
+        "bandwith_mhz": "500.0",
+        "collection_time_s": "30.0",
+        "freq_noise_scale_mhz": "0.5",
+        "gain_db": "10.0",
+        "pw_noise_scale_us": "0.005",
+        "pw_res_us": "0.006900000000000001",
+        "scan_mode": "Scanning",
+        "sensitivity_dbm": "-110.0",
+        "speed_km_s": "0.0",
+        "toa_noise_scale_us": "0.025",
+        "travel_angle_deg": "45.0"
+      },
+      "dwell_centres_mhz": {
+        "type": "array",
+        "shape": [
+          36
+        ],
+        "dtype": "float32",
+        "values": [
+          250.0,
+          750.0,
+          1250.0,
+          1750.0,
+          2250.0,
+          2750.0,
+          3250.0,
+          3750.0,
+          4250.0,
+          4750.0
+        ]
+      },
+      "dwell_times_s": {
+        "type": "array",
+        "shape": [
+          36
+        ],
+        "dtype": "float32",
+        "values": [
+          0.10000000149011612,
+          0.10000000149011612,
+          0.05000000074505806,
+          0.05000000074505806,
+          0.05000000074505806,
+          0.05000000074505806,
+          0.10000000149011612,
+          0.10000000149011612,
+          0.05000000074505806,
+          0.05000000074505806
+        ]
+      },
+      "freq_range_mhz": {
+        "type": "array",
+        "shape": [
+          2
+        ],
+        "dtype": "float32",
+        "values": [
+          500.0,
+          18000.0
+        ]
+      },
+      "start_position_km": {
+        "type": "array",
+        "shape": [
+          2
+        ],
+        "dtype": "float32",
+        "values": [
+          100.0,
+          100.0
+        ]
+      }
+    },
+    "transmitters": {
+      "count": 96,
+      "sample_schema": {
+        "frequency_config": "group, contents={'freqs_mhz': 'array, shape=(1,), sample=[1290.7292247193402]'}",
+        "position_config": "group, contents={'start_position_km': 'array, shape=(2,), sample=[95.58366119914035, 39.97719144893869]'}",
+        "power_config": "group, contents={}",
+        "pri_config": "group, contents={'pris_us': 'array, shape=(1,), sample=[2000.0]'}",
+        "pulse_width_config": "group, contents={'pws_us': 'array, shape=(1,), sample=[100.0]'}",
+        "scan_config": "group, contents={}"
+      }
+    }
+  },
+  "config_1.h5": {
+    "global_attributes": {},
+    "num_records": 119281,
+    "features": {
+      "ToA": {
+        "min": 180983.234375,
+        "max": 28739028.0,
+        "mean": 13992443.0,
+        "median": 14123599.0,
+        "dtype": "float32",
+        "num_unique": 117984
+      },
+      "Frequency": {
+        "min": 4.675295829772949,
+        "max": 10003.595703125,
+        "mean": 2886.244873046875,
+        "median": 2377.595458984375,
+        "dtype": "float32",
+        "num_unique": 94684
+      },
+      "PulseWidth": {
+        "min": 0.1624155193567276,
+        "max": 367.9926452636719,
+        "mean": 18.896190643310547,
+        "median": 0.21285927295684814,
+        "dtype": "float32",
+        "num_unique": 118193
+      },
+      "AoA": {
+        "min": -179.89833068847656,
+        "max": 179.7152862548828,
+        "mean": -94.2208251953125,
+        "median": -135.0081329345703,
+        "dtype": "float32",
+        "num_unique": 117299
+      },
+      "Amplitude": {
+        "min": -159.198486328125,
+        "max": 10.86899185180664,
+        "mean": -77.8917465209961,
+        "median": -83.10334777832031,
+        "dtype": "float32",
+        "num_unique": 116498
+      }
+    },
+    "toa_diffs": {
+      "min": 0.0,
+      "max": 806507.0,
+      "median": 20.5,
+      "mean": 239.42022705078125
+    },
+    "labels": {
+      "num_labels": 119281,
+      "unique_count": 37,
+      "unique_values": [
+        0,
+        1,
+        4,
+        6,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19,
+        21,
+        23,
+        24,
+        27,
+        28,
+        29
+      ],
+      "dtype": "int8"
+    },
+    "receiver": {
+      "attributes": {
+        "bandwith_mhz": "500.0",
+        "collection_time_s": "30.0",
+        "freq_noise_scale_mhz": "0.5",
+        "gain_db": "10.0",
+        "pw_noise_scale_us": "0.005",
+        "pw_res_us": "0.006900000000000001",
+        "scan_mode": "Scanning",
+        "sensitivity_dbm": "-110.0",
+        "speed_km_s": "0.0",
+        "toa_noise_scale_us": "0.025",
+        "travel_angle_deg": "45.0"
+      },
+      "dwell_centres_mhz": {
+        "type": "array",
+        "shape": [
+          36
+        ],
+        "dtype": "float32",
+        "values": [
+          250.0,
+          750.0,
+          1250.0,
+          1750.0,
+          2250.0,
+          2750.0,
+          3250.0,
+          3750.0,
+          4250.0,
+          4750.0
+        ]
+      },
+      "dwell_times_s": {
+        "type": "array",
+        "shape": [
+          36
+        ],
+        "dtype": "float32",
+        "values": [
+          0.10000000149011612,
+          0.10000000149011612,
+          0.05000000074505806,
+          0.05000000074505806,
+          0.05000000074505806,
+          0.05000000074505806,
+          0.10000000149011612,
+          0.10000000149011612,
+          0.05000000074505806,
+          0.05000000074505806
+        ]
+      },
+      "freq_range_mhz": {
+        "type": "array",
+        "shape": [
+          2
+        ],
+        "dtype": "float32",
+        "values": [
+          500.0,
+          18000.0
+        ]
+      },
+      "start_position_km": {
+        "type": "array",
+        "shape": [
+          2
+        ],
+        "dtype": "float32",
+        "values": [
+          100.0,
+          100.0
+        ]
+      }
+    },
+    "transmitters": {
+      "count": 47,
+      "sample_schema": {
+        "frequency_config": "group, contents={'freqs_mhz': 'array, shape=(3,), sample=[8800.0, 9100.0, 9400.0]'}",
+        "position_config": "group, contents={'start_position_km': 'array, shape=(2,), sample=[165.9508916174819, 74.24822793197033]'}",
+        "power_config": "group, contents={}",
+        "pri_config": "group, contents={'pris_us': 'array, shape=(3,), sample=[10.0, 20.0, 30.0]'}",
+        "pulse_width_config": "group, contents={'pws_us': 'array, shape=(3,), sample=[0.5945704069011167, 0.5243855784022978, 0.8910904733241654]'}",
+        "scan_config": "group, contents={}"
+      }
+    }
+  },
+  "config_2.h5": {
+    "global_attributes": {},
+    "num_records": 26947,
+    "features": {
+      "ToA": {
+        "min": 711179.0,
+        "max": 28622136.0,
+        "mean": 15135729.0,
+        "median": 15204803.0,
+        "dtype": "float32",
+        "num_unique": 26918
+      },
+      "Frequency": {
+        "min": 26.473737716674805,
+        "max": 11987.814453125,
+        "mean": 4155.021484375,
+        "median": 4678.4404296875,
+        "dtype": "float32",
+        "num_unique": 23221
+      },
+      "PulseWidth": {
+        "min": 0.21757563948631287,
+        "max": 345.6068115234375,
+        "mean": 4.035597324371338,
+        "median": 1.2236602306365967,
+        "dtype": "float32",
+        "num_unique": 26814
+      },
+      "AoA": {
+        "min": -178.9613037109375,
+        "max": 178.45167541503906,
+        "mean": -36.75467300415039,
+        "median": -47.44508743286133,
+        "dtype": "float32",
+        "num_unique": 26719
+      },
+      "Amplitude": {
+        "min": -170.6671142578125,
+        "max": -19.882089614868164,
+        "mean": -90.21945190429688,
+        "median": -91.87061309814453,
+        "dtype": "float32",
+        "num_unique": 26884
+      }
+    },
+    "toa_diffs": {
+      "min": 0.0,
+      "max": 2026834.0,
+      "median": 61.0,
+      "mean": 1035.810791015625
+    },
+    "labels": {
+      "num_labels": 26947,
+      "unique_count": 22,
+      "unique_values": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        10,
+        11,
+        12,
+        13,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        27
+      ],
+      "dtype": "int8"
+    },
+    "receiver": {
+      "attributes": {
+        "bandwith_mhz": "500.0",
+        "collection_time_s": "30.0",
+        "freq_noise_scale_mhz": "0.5",
+        "gain_db": "10.0",
+        "pw_noise_scale_us": "0.005",
+        "pw_res_us": "0.006900000000000001",
+        "scan_mode": "Scanning",
+        "sensitivity_dbm": "-110.0",
+        "speed_km_s": "0.0",
+        "toa_noise_scale_us": "0.025",
+        "travel_angle_deg": "45.0"
+      },
+      "dwell_centres_mhz": {
+        "type": "array",
+        "shape": [
+          36
+        ],
+        "dtype": "float32",
+        "values": [
+          250.0,
+          750.0,
+          1250.0,
+          1750.0,
+          2250.0,
+          2750.0,
+          3250.0,
+          3750.0,
+          4250.0,
+          4750.0
+        ]
+      },
+      "dwell_times_s": {
+        "type": "array",
+        "shape": [
+          36
+        ],
+        "dtype": "float32",
+        "values": [
+          0.10000000149011612,
+          0.10000000149011612,
+          0.05000000074505806,
+          0.05000000074505806,
+          0.05000000074505806,
+          0.05000000074505806,
+          0.10000000149011612,
+          0.10000000149011612,
+          0.05000000074505806,
+          0.05000000074505806
+        ]
+      },
+      "freq_range_mhz": {
+        "type": "array",
+        "shape": [
+          2
+        ],
+        "dtype": "float32",
+        "values": [
+          500.0,
+          18000.0
+        ]
+      },
+      "start_position_km": {
+        "type": "array",
+        "shape": [
+          2
+        ],
+        "dtype": "float32",
+        "values": [
+          100.0,
+          100.0
+        ]
+      }
+    },
+    "transmitters": {
+      "count": 32,
+      "sample_schema": {
+        "frequency_config": "group, contents={'freqs_mhz': 'array, shape=(1,), sample=[35604.00336228733]'}",
+        "position_config": "group, contents={'start_position_km': 'array, shape=(2,), sample=[158.83376184367614, 201.85702795127702]'}",
+        "power_config": "group, contents={}",
+        "pri_config": "group, contents={'pris_us': 'array, shape=(1,), sample=[5.0]'}",
+        "pulse_width_config": "group, contents={'pws_us': 'array, shape=(1,), sample=[0.05]'}",
+        "scan_config": "group, contents={}"
+      }
+    }
+  },
+  "config_3.h5": {
+    "global_attributes": {},
+    "num_records": 42132,
+    "features": {
+      "ToA": {
+        "min": 717272.125,
+        "max": 29197522.0,
+        "mean": 14696107.0,
+        "median": 13611128.0,
+        "dtype": "float32",
+        "num_unique": 41950
+      },
+      "Frequency": {
+        "min": 429.065185546875,
+        "max": 9416.8837890625,
+        "mean": 4712.3408203125,
+        "median": 4798.0908203125,
+        "dtype": "float32",
+        "num_unique": 32326
+      },
+      "PulseWidth": {
+        "min": 0.05196704342961311,
+        "max": 215.52723693847656,
+        "mean": 1.4228312969207764,
+        "median": 0.9556293487548828,
+        "dtype": "float32",
+        "num_unique": 41891
+      },
+      "AoA": {
+        "min": -129.6660614013672,
+        "max": 124.75032043457031,
+        "mean": 31.854318618774414,
+        "median": 57.13641357421875,
+        "dtype": "float32",
+        "num_unique": 41534
+      },
+      "Amplitude": {
+        "min": -149.4044952392578,
+        "max": -45.23413848876953,
+        "mean": -83.93248748779297,
+        "median": -83.478759765625,
+        "dtype": "float32",
+        "num_unique": 41980
+      }
+    },
+    "toa_diffs": {
+      "min": 0.0,
+      "max": 1009391.25,
+      "median": 31.0,
+      "mean": 675.9927368164062
+    },
+    "labels": {
+      "num_labels": 42132,
+      "unique_count": 17,
+      "unique_values": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "dtype": "int8"
+    },
+    "receiver": {
+      "attributes": {
+        "bandwith_mhz": "500.0",
+        "collection_time_s": "30.0",
+        "freq_noise_scale_mhz": "0.5",
+        "gain_db": "10.0",
+        "pw_noise_scale_us": "0.005",
+        "pw_res_us": "0.006900000000000001",
+        "scan_mode": "Scanning",
+        "sensitivity_dbm": "-110.0",
+        "speed_km_s": "0.0",
+        "toa_noise_scale_us": "0.025",
+        "travel_angle_deg": "45.0"
+      },
+      "dwell_centres_mhz": {
+        "type": "array",
+        "shape": [
+          36
+        ],
+        "dtype": "float32",
+        "values": [
+          250.0,
+          750.0,
+          1250.0,
+          1750.0,
+          2250.0,
+          2750.0,
+          3250.0,
+          3750.0,
+          4250.0,
+          4750.0
+        ]
+      },
+      "dwell_times_s": {
+        "type": "array",
+        "shape": [
+          36
+        ],
+        "dtype": "float32",
+        "values": [
+          0.10000000149011612,
+          0.10000000149011612,
+          0.05000000074505806,
+          0.05000000074505806,
+          0.05000000074505806,
+          0.05000000074505806,
+          0.10000000149011612,
+          0.10000000149011612,
+          0.05000000074505806,
+          0.05000000074505806
+        ]
+      },
+      "freq_range_mhz": {
+        "type": "array",
+        "shape": [
+          2
+        ],
+        "dtype": "float32",
+        "values": [
+          500.0,
+          18000.0
+        ]
+      },
+      "start_position_km": {
+        "type": "array",
+        "shape": [
+          2
+        ],
+        "dtype": "float32",
+        "values": [
+          100.0,
+          100.0
+        ]
+      }
+    },
+    "transmitters": {
+      "count": 18,
+      "sample_schema": {
+        "frequency_config": "group, contents={'freqs_mhz': 'array, shape=(1,), sample=[8889.896497329313]'}",
+        "position_config": "group, contents={'start_position_km': 'array, shape=(2,), sample=[36.12650400028175, 201.62499687474175]'}",
+        "power_config": "group, contents={}",
+        "pri_config": "group, contents={'pris_us': 'array, shape=(3,), sample=[50.0, 100.0, 150.0]'}",
+        "pulse_width_config": "group, contents={'pws_us': 'array, shape=(1,), sample=[0.25]'}",
+        "scan_config": "group, contents={}"
+      }
+    }
+  },
+  "config_4.h5": {
+    "global_attributes": {},
+    "num_records": 235586,
+    "features": {
+      "ToA": {
+        "min": 4447.71728515625,
+        "max": 28791436.0,
+        "mean": 13981776.0,
+        "median": 13292079.0,
+        "dtype": "float32",
+        "num_unique": 228106
+      },
+      "Frequency": {
+        "min": 24.613527297973633,
+        "max": 10010.4521484375,
+        "mean": 3707.019775390625,
+        "median": 3302.34423828125,
+        "dtype": "float32",
+        "num_unique": 171206
+      },
+      "PulseWidth": {
+        "min": 0.027656633406877518,
+        "max": 342.7095031738281,
+        "mean": 5.597284317016602,
+        "median": 1.1195025444030762,
+        "dtype": "float32",
+        "num_unique": 231233
+      },
+      "AoA": {
+        "min": -172.97462463378906,
+        "max": 171.61192321777344,
+        "mean": 16.782602310180664,
+        "median": 9.430464744567871,
+        "dtype": "float32",
+        "num_unique": 224128
+      },
+      "Amplitude": {
+        "min": -160.8291473388672,
+        "max": -7.266922950744629,
+        "mean": -87.69913482666016,
+        "median": -90.85006713867188,
+        "dtype": "float32",
+        "num_unique": 228584
+      }
+    },
+    "toa_diffs": {
+      "min": 0.0,
+      "max": 905776.0,
+      "median": 20.0,
+      "mean": 122.19363403320312
+    },
+    "labels": {
+      "num_labels": 235586,
+      "unique_count": 58,
+      "unique_values": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        8,
+        9,
+        10,
+        11,
+        12,
+        17,
+        18,
+        19,
+        21,
+        22,
+        25,
+        26,
+        27,
+        28
+      ],
+      "dtype": "int8"
+    },
+    "receiver": {
+      "attributes": {
+        "bandwith_mhz": "500.0",
+        "collection_time_s": "30.0",
+        "freq_noise_scale_mhz": "0.5",
+        "gain_db": "10.0",
+        "pw_noise_scale_us": "0.005",
+        "pw_res_us": "0.006900000000000001",
+        "scan_mode": "Scanning",
+        "sensitivity_dbm": "-110.0",
+        "speed_km_s": "0.0",
+        "toa_noise_scale_us": "0.025",
+        "travel_angle_deg": "45.0"
+      },
+      "dwell_centres_mhz": {
+        "type": "array",
+        "shape": [
+          36
+        ],
+        "dtype": "float32",
+        "values": [
+          250.0,
+          750.0,
+          1250.0,
+          1750.0,
+          2250.0,
+          2750.0,
+          3250.0,
+          3750.0,
+          4250.0,
+          4750.0
+        ]
+      },
+      "dwell_times_s": {
+        "type": "array",
+        "shape": [
+          36
+        ],
+        "dtype": "float32",
+        "values": [
+          0.10000000149011612,
+          0.10000000149011612,
+          0.05000000074505806,
+          0.05000000074505806,
+          0.05000000074505806,
+          0.05000000074505806,
+          0.10000000149011612,
+          0.10000000149011612,
+          0.05000000074505806,
+          0.05000000074505806
+        ]
+      },
+      "freq_range_mhz": {
+        "type": "array",
+        "shape": [
+          2
+        ],
+        "dtype": "float32",
+        "values": [
+          500.0,
+          18000.0
+        ]
+      },
+      "start_position_km": {
+        "type": "array",
+        "shape": [
+          2
+        ],
+        "dtype": "float32",
+        "values": [
+          100.0,
+          100.0
+        ]
+      }
+    },
+    "transmitters": {
+      "count": 87,
+      "sample_schema": {
+        "frequency_config": "group, contents={'freqs_mhz': 'array, shape=(1,), sample=[2919.9635931141006]'}",
+        "position_config": "group, contents={'start_position_km': 'array, shape=(2,), sample=[120.94652265065231, 71.66239768435487]'}",
+        "power_config": "group, contents={}",
+        "pri_config": "group, contents={'pris_us': 'array, shape=(3,), sample=[300.0, 350.0, 400.0]'}",
+        "pulse_width_config": "group, contents={'pws_us': 'array, shape=(2,), sample=[2.0, 6.0]'}",
+        "scan_config": "group, contents={}"
+      }
+    }
+  }
+}

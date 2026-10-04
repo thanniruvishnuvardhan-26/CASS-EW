@@ -1,0 +1,802 @@
+[
+  {
+    "timestamp": 0.002571,
+    "frequency": 5800.0,
+    "pulse_width": 8.657,
+    "amplitude": -56.64,
+    "angle": -146.1,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.004524,
+    "frequency": 2400.0,
+    "pulse_width": 7.731,
+    "amplitude": -51.77,
+    "angle": -133.9,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.00548,
+    "frequency": 5800.0,
+    "pulse_width": 9.304,
+    "amplitude": -59.59,
+    "angle": 116.2,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.006422,
+    "frequency": 2400.0,
+    "pulse_width": 2.659,
+    "amplitude": -64.5,
+    "angle": -157.0,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.008095,
+    "frequency": 2400.0,
+    "pulse_width": 7.702,
+    "amplitude": -75.5,
+    "angle": 169.5,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.009892,
+    "frequency": 5800.0,
+    "pulse_width": 7.895,
+    "amplitude": -84.29,
+    "angle": -12.0,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.010075,
+    "frequency": 5800.0,
+    "pulse_width": 6.989,
+    "amplitude": -54.04,
+    "angle": 168.3,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.010794,
+    "frequency": 1200.0,
+    "pulse_width": 4.019,
+    "amplitude": -69.17,
+    "angle": -111.8,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.011141,
+    "frequency": 5800.0,
+    "pulse_width": 2.656,
+    "amplitude": -58.16,
+    "angle": -22.6,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.012823,
+    "frequency": 2400.0,
+    "pulse_width": 7.153,
+    "amplitude": -77.82,
+    "angle": 119.6,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.014452,
+    "frequency": 9300.0,
+    "pulse_width": 3.239,
+    "amplitude": -57.46,
+    "angle": -129.7,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.014932,
+    "frequency": 2400.0,
+    "pulse_width": 0.57,
+    "amplitude": -51.72,
+    "angle": 59.3,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.016372,
+    "frequency": 2400.0,
+    "pulse_width": 4.86,
+    "amplitude": -63.72,
+    "angle": -129.7,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.016689,
+    "frequency": 9300.0,
+    "pulse_width": 6.85,
+    "amplitude": -69.09,
+    "angle": 23.5,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.018243,
+    "frequency": 5800.0,
+    "pulse_width": 5.759,
+    "amplitude": -64.24,
+    "angle": -70.6,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.018401,
+    "frequency": 5800.0,
+    "pulse_width": 4.649,
+    "amplitude": -83.2,
+    "angle": -32.9,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.020123,
+    "frequency": 1200.0,
+    "pulse_width": 1.054,
+    "amplitude": -79.52,
+    "angle": -74.3,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.021481,
+    "frequency": 1200.0,
+    "pulse_width": 5.792,
+    "amplitude": -51.89,
+    "angle": 59.2,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.022353,
+    "frequency": 2400.0,
+    "pulse_width": 2.086,
+    "amplitude": -93.75,
+    "angle": -147.6,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.023825,
+    "frequency": 9300.0,
+    "pulse_width": 4.888,
+    "amplitude": -86.13,
+    "angle": 0.4,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.024215,
+    "frequency": 2400.0,
+    "pulse_width": 4.738,
+    "amplitude": -74.04,
+    "angle": -71.5,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.025512,
+    "frequency": 5800.0,
+    "pulse_width": 3.937,
+    "amplitude": -90.18,
+    "angle": -137.5,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.02744,
+    "frequency": 2400.0,
+    "pulse_width": 7.147,
+    "amplitude": -80.38,
+    "angle": 168.9,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.029019,
+    "frequency": 9300.0,
+    "pulse_width": 7.31,
+    "amplitude": -70.29,
+    "angle": -82.0,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.029302,
+    "frequency": 2400.0,
+    "pulse_width": 4.83,
+    "amplitude": -83.87,
+    "angle": -69.9,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.030503,
+    "frequency": 9300.0,
+    "pulse_width": 2.179,
+    "amplitude": -47.89,
+    "angle": 93.1,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.03197,
+    "frequency": 5800.0,
+    "pulse_width": 6.459,
+    "amplitude": -62.87,
+    "angle": 53.9,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.03223,
+    "frequency": 2400.0,
+    "pulse_width": 4.45,
+    "amplitude": -92.71,
+    "angle": -2.2,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.032957,
+    "frequency": 5800.0,
+    "pulse_width": 1.482,
+    "amplitude": -62.68,
+    "angle": -118.6,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.034815,
+    "frequency": 1200.0,
+    "pulse_width": 6.02,
+    "amplitude": -75.92,
+    "angle": 32.7,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.034958,
+    "frequency": 1200.0,
+    "pulse_width": 5.082,
+    "amplitude": -51.95,
+    "angle": -150.2,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.035983,
+    "frequency": 9300.0,
+    "pulse_width": 5.162,
+    "amplitude": -43.42,
+    "angle": 25.8,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.036982,
+    "frequency": 9300.0,
+    "pulse_width": 3.65,
+    "amplitude": -66.36,
+    "angle": -22.0,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.037124,
+    "frequency": 2400.0,
+    "pulse_width": 8.35,
+    "amplitude": -45.71,
+    "angle": -129.5,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.038276,
+    "frequency": 2400.0,
+    "pulse_width": 6.886,
+    "amplitude": -79.53,
+    "angle": 57.4,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.039757,
+    "frequency": 1200.0,
+    "pulse_width": 7.802,
+    "amplitude": -89.07,
+    "angle": 149.8,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.040295,
+    "frequency": 1200.0,
+    "pulse_width": 5.771,
+    "amplitude": -74.6,
+    "angle": 118.7,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.041931,
+    "frequency": 1200.0,
+    "pulse_width": 3.513,
+    "amplitude": -42.59,
+    "angle": -75.3,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.043009,
+    "frequency": 9300.0,
+    "pulse_width": 9.392,
+    "amplitude": -85.95,
+    "angle": -163.8,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.043936,
+    "frequency": 2400.0,
+    "pulse_width": 9.928,
+    "amplitude": -45.96,
+    "angle": 89.5,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.045728,
+    "frequency": 1200.0,
+    "pulse_width": 5.429,
+    "amplitude": -77.62,
+    "angle": 97.9,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.047086,
+    "frequency": 9300.0,
+    "pulse_width": 4.05,
+    "amplitude": -89.8,
+    "angle": 88.8,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.047684,
+    "frequency": 1200.0,
+    "pulse_width": 2.789,
+    "amplitude": -88.25,
+    "angle": 119.2,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.048075,
+    "frequency": 9300.0,
+    "pulse_width": 2.203,
+    "amplitude": -62.03,
+    "angle": 134.8,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.048549,
+    "frequency": 2400.0,
+    "pulse_width": 7.885,
+    "amplitude": -41.55,
+    "angle": 0.3,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.048922,
+    "frequency": 2400.0,
+    "pulse_width": 0.632,
+    "amplitude": -82.37,
+    "angle": -132.5,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.05031,
+    "frequency": 9300.0,
+    "pulse_width": 5.31,
+    "amplitude": -56.82,
+    "angle": 29.2,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.050789,
+    "frequency": 1200.0,
+    "pulse_width": 8.139,
+    "amplitude": -55.65,
+    "angle": 86.0,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.051138,
+    "frequency": 2400.0,
+    "pulse_width": 9.312,
+    "amplitude": -73.13,
+    "angle": -71.7,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.052167,
+    "frequency": 1200.0,
+    "pulse_width": 6.797,
+    "amplitude": -42.44,
+    "angle": -76.9,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.054024,
+    "frequency": 2400.0,
+    "pulse_width": 5.774,
+    "amplitude": -60.13,
+    "angle": -141.9,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.05439,
+    "frequency": 1200.0,
+    "pulse_width": 4.482,
+    "amplitude": -41.86,
+    "angle": 34.6,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.056263,
+    "frequency": 5800.0,
+    "pulse_width": 4.94,
+    "amplitude": -51.84,
+    "angle": -173.6,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.05657,
+    "frequency": 9300.0,
+    "pulse_width": 8.38,
+    "amplitude": -51.18,
+    "angle": -96.2,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.057679,
+    "frequency": 9300.0,
+    "pulse_width": 8.744,
+    "amplitude": -61.83,
+    "angle": -31.5,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.05849,
+    "frequency": 5800.0,
+    "pulse_width": 4.546,
+    "amplitude": -59.14,
+    "angle": 132.3,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.059452,
+    "frequency": 5800.0,
+    "pulse_width": 2.748,
+    "amplitude": -53.97,
+    "angle": 114.0,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.059752,
+    "frequency": 1200.0,
+    "pulse_width": 1.132,
+    "amplitude": -62.31,
+    "angle": -127.4,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.061419,
+    "frequency": 2400.0,
+    "pulse_width": 1.867,
+    "amplitude": -44.35,
+    "angle": -120.4,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.06206,
+    "frequency": 2400.0,
+    "pulse_width": 1.959,
+    "amplitude": -88.65,
+    "angle": -172.4,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.062265,
+    "frequency": 1200.0,
+    "pulse_width": 1.007,
+    "amplitude": -62.49,
+    "angle": 65.1,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.063113,
+    "frequency": 1200.0,
+    "pulse_width": 3.521,
+    "amplitude": -67.25,
+    "angle": 135.0,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.06483,
+    "frequency": 5800.0,
+    "pulse_width": 2.224,
+    "amplitude": -81.98,
+    "angle": -90.2,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.066016,
+    "frequency": 1200.0,
+    "pulse_width": 4.454,
+    "amplitude": -92.29,
+    "angle": -45.5,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.067111,
+    "frequency": 9300.0,
+    "pulse_width": 8.418,
+    "amplitude": -92.14,
+    "angle": 152.9,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.067399,
+    "frequency": 1200.0,
+    "pulse_width": 8.514,
+    "amplitude": -45.35,
+    "angle": 172.6,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.069023,
+    "frequency": 5800.0,
+    "pulse_width": 6.604,
+    "amplitude": -52.16,
+    "angle": -131.6,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.070142,
+    "frequency": 9300.0,
+    "pulse_width": 5.385,
+    "amplitude": -47.83,
+    "angle": -13.4,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.070973,
+    "frequency": 5800.0,
+    "pulse_width": 3.031,
+    "amplitude": -87.31,
+    "angle": -8.0,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.071865,
+    "frequency": 5800.0,
+    "pulse_width": 2.709,
+    "amplitude": -74.79,
+    "angle": -48.1,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.072588,
+    "frequency": 2400.0,
+    "pulse_width": 7.015,
+    "amplitude": -78.67,
+    "angle": 161.6,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.074429,
+    "frequency": 2400.0,
+    "pulse_width": 5.069,
+    "amplitude": -76.94,
+    "angle": 12.8,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.076141,
+    "frequency": 2400.0,
+    "pulse_width": 8.142,
+    "amplitude": -65.7,
+    "angle": 47.9,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.076788,
+    "frequency": 5800.0,
+    "pulse_width": 7.481,
+    "amplitude": -83.87,
+    "angle": 70.1,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.078524,
+    "frequency": 9300.0,
+    "pulse_width": 6.337,
+    "amplitude": -89.77,
+    "angle": 81.3,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.078784,
+    "frequency": 1200.0,
+    "pulse_width": 9.391,
+    "amplitude": -87.44,
+    "angle": 165.2,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.080406,
+    "frequency": 2400.0,
+    "pulse_width": 7.935,
+    "amplitude": -51.27,
+    "angle": 160.6,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.080987,
+    "frequency": 5800.0,
+    "pulse_width": 6.106,
+    "amplitude": -89.77,
+    "angle": 41.8,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.081413,
+    "frequency": 1200.0,
+    "pulse_width": 5.938,
+    "amplitude": -69.37,
+    "angle": 8.1,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.082964,
+    "frequency": 5800.0,
+    "pulse_width": 8.093,
+    "amplitude": -67.93,
+    "angle": 35.9,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.084834,
+    "frequency": 9300.0,
+    "pulse_width": 1.612,
+    "amplitude": -90.18,
+    "angle": 56.8,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.085729,
+    "frequency": 1200.0,
+    "pulse_width": 7.856,
+    "amplitude": -58.08,
+    "angle": -59.9,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.087536,
+    "frequency": 9300.0,
+    "pulse_width": 3.07,
+    "amplitude": -74.97,
+    "angle": -66.8,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.087935,
+    "frequency": 9300.0,
+    "pulse_width": 1.904,
+    "amplitude": -43.51,
+    "angle": -22.4,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.088764,
+    "frequency": 1200.0,
+    "pulse_width": 5.753,
+    "amplitude": -43.51,
+    "angle": 100.9,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.089774,
+    "frequency": 5800.0,
+    "pulse_width": 4.075,
+    "amplitude": -40.74,
+    "angle": 78.4,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.091682,
+    "frequency": 2400.0,
+    "pulse_width": 8.58,
+    "amplitude": -59.96,
+    "angle": -136.1,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.092899,
+    "frequency": 1200.0,
+    "pulse_width": 7.018,
+    "amplitude": -94.32,
+    "angle": -16.4,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.094568,
+    "frequency": 2400.0,
+    "pulse_width": 4.856,
+    "amplitude": -70.67,
+    "angle": -71.3,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.096413,
+    "frequency": 2400.0,
+    "pulse_width": 7.922,
+    "amplitude": -88.92,
+    "angle": 178.9,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.098183,
+    "frequency": 5800.0,
+    "pulse_width": 8.451,
+    "amplitude": -89.15,
+    "angle": 179.7,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.099548,
+    "frequency": 2400.0,
+    "pulse_width": 6.676,
+    "amplitude": -90.03,
+    "angle": 142.9,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.099703,
+    "frequency": 1200.0,
+    "pulse_width": 1.859,
+    "amplitude": -52.28,
+    "angle": -108.6,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.101533,
+    "frequency": 1200.0,
+    "pulse_width": 6.735,
+    "amplitude": -93.01,
+    "angle": -178.0,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.101731,
+    "frequency": 9300.0,
+    "pulse_width": 8.114,
+    "amplitude": -81.88,
+    "angle": 125.8,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.10194,
+    "frequency": 5800.0,
+    "pulse_width": 8.109,
+    "amplitude": -43.97,
+    "angle": 98.0,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.103367,
+    "frequency": 9300.0,
+    "pulse_width": 0.881,
+    "amplitude": -83.9,
+    "angle": -135.0,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.104425,
+    "frequency": 9300.0,
+    "pulse_width": 7.579,
+    "amplitude": -60.35,
+    "angle": 126.4,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.10482,
+    "frequency": 9300.0,
+    "pulse_width": 2.334,
+    "amplitude": -80.11,
+    "angle": 75.6,
+    "receiver_id": "R1"
+  },
+  {
+    "timestamp": 0.106783,
+    "frequency": 5800.0,
+    "pulse_width": 6.31,
+    "amplitude": -92.0,
+    "angle": 41.9,
+    "receiver_id": "R1"
+  }
+]

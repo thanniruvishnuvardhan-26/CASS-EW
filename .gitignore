@@ -42,3 +42,13 @@ env/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# CASS-EW Specific
+.pytest_cache/
+archive/execution_logs/
+# Temporary development files
+scratch/
+scratch_debug.py
+lefts.txt
+out.txt
+frontend/static/style.bak.css

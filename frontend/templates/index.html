@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CASS-EW Interactive Prototype</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <!-- Walkthrough Overlay -->
+    <div id="walkthrough-overlay" class="walkthrough-overlay" style="display: none;">
+        <div class="walkthrough-header">
+            <h3 id="wt-title">STAGE 1: OBSERVE</h3>
+            <span id="wt-progress">STEP 1 / 6</span>
+        </div>
+        <div class="walkthrough-body" id="wt-desc">
+            The system receives observable scan results from the RF environment.
+        </div>
+        <div class="walkthrough-footer">
+            <button id="btn-wt-close" class="btn">Close</button>
+            <button id="btn-wt-skip" class="btn">Skip</button>
+            <button id="btn-wt-next" class="btn primary">Next</button>
+        </div>
+    </div>
+    <header class="hero compact-hero">
+        <div class="hero-content">
+            <div class="hero-left">
+                <h1 class="hero-title">CASS-EW</h1>
+                <p class="hero-subtitle">Cognitive Adaptive Smart Scan for Electronic Warfare</p>
+            </div>
+            <div class="hero-right">
+                <div class="system-status-indicator">
+                    <span class="status-dot"></span> <span id="system-status-text"></span>
+                </div>
+                <div class="presentation-badges" style="display: none; flex-direction: column; align-items: flex-end; gap: 4px; margin-top: 10px;">
+                    <div class="badge warning">LIVE SYNTHETIC SIMULATION</div>
+                    <div class="badge">STATIC REFERENCE BENCHMARK</div>
+                    <div class="badge danger">REAL RF/PDW DATA: NOT VALIDATED</div>
+                </div>
+                <div class="badge warning default-badge" style="margin-top: 10px;">RESEARCH PROTOTYPE — SYNTHETIC/REPLAY VALIDATION</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="live-cognitive-status">
+        <div class="status-header">LIVE COGNITIVE STATUS</div>
+        <div class="status-grid">
+            <div class="status-block">
+                <div class="status-label">CURRENT RECEIVER</div>
+                <div class="status-value" id="current-rx-val">-</div>
+            </div>
+            <div class="status-block">
+                <div class="status-label">CURRENT BAND</div>
+                <div class="status-value" id="current-band-val">-</div>
+            </div>
+            <div class="status-block primary">
+                <div class="status-label">NEXT ACTION</div>
+                <div class="status-value highlight" id="next-action-val">AWAITING START...</div>
+                <div class="status-sub">Next recommended scan</div>
+            </div>
+            <div class="status-block">
+                <div class="status-label">DECISION STATE</div>
+                <div class="status-value" id="decision-state-val">-</div>
+            </div>
+            <div class="status-block">
+                <div class="status-label">RF TIME</div>
+                <div class="status-value" id="time-val">0</div>
+            </div>
+            <div class="status-block">
+                <div class="status-label">OPERATING MODE</div>
+                <div class="status-value mode-val">SYNTHETIC / REPLAY</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls-bar console-controls">
+        <div class="console-label">SIMULATION CONTROL CONSOLE</div>
+        <div class="console-actions">
+            <button id="btn-presentation" class="btn primary">PRESENTATION VIEW</button>
+            <button id="btn-demo" class="btn primary">DEMO MODE</button>
+            <button id="btn-start" class="btn">START SIMULATION</button>
+            <button id="btn-pause" class="btn">Pause</button>
+            <button id="btn-step" class="btn">Step</button>
+            <button id="btn-reset" class="btn danger">RESET SIMULATION</button>
+        </div>
+        <div class="console-settings">
+            <div class="control-group">
+                <label for="seed-input">SEED:</label>
+                <input type="number" id="seed-input" value="42">
+            </div>
+            <div class="control-group">
+                <label for="speed-input">SPEED:</label>
+                <input type="range" id="speed-input" min="10" max="1000" value="200" dir="rtl">
+            </div>
+        </div>
+    </div>
+
+    <div class="controls-bar scenario-controls" style="margin-top: 10px;">
+        <div class="console-label">SCENARIO & ALGORITHM CONFIGURATION</div>
+        <div class="config-grid" style="display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 16px; padding: 12px; align-items: start;">
+            <div class="config-column" style="display: flex; flex-direction: column; gap: 12px;">
+                <div>
+                    <label style="display: block; font-size: 10px; font-weight: bold; color: var(--text-muted); margin-bottom: 4px;">SCENARIO</label>
+                    <select id="scenario-select" class="form-select" style="width: 100%; padding: 6px; background: #161b22; color: #c9d1d9; border: 1px solid #30363d; border-radius: 4px;">
+                        <option value="Mixed Environment">Mixed Environment</option>
+                        <option value="Deterministic Hopping">Deterministic Hopping</option>
+                        <option value="Periodic">Periodic</option>
+                        <option value="Stationary / Fixed">Stationary / Fixed</option>
+                        <option value="Frequency Agile">Frequency Agile</option>
+                        <option value="Random Hopping">Random Hopping</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="display: block; font-size: 10px; font-weight: bold; color: var(--text-muted); margin-bottom: 4px;">ALGORITHM</label>
+                    <select id="algorithm-select" class="form-select" style="width: 100%; padding: 6px; background: #161b22; color: #c9d1d9; border: 1px solid #30363d; border-radius: 4px;">
+                        <option value="Cognitive Adaptive (Integrated)">Cognitive Adaptive (Integrated) [OFFICIAL]</option>
+                        <option value="UCB1">UCB1 (Bandit Baseline)</option>
+                        <option value="Adaptive Belief">Adaptive Belief (Bayesian)</option>
+                        <option value="Sequential">Sequential Scan</option>
+                        <option value="Random">Random Scan</option>
+                        <option value="Temporal Belief">Temporal Belief</option>
+                        <option value="Phase 5 Temporal">Phase 5 Temporal Profile</option>
+                        <option value="Phase 6 Predictive">Phase 6 Predictive</option>
+                        <option value="Phase 7 Pattern-Aware">Phase 7 Pattern-Aware</option>
+                    </select>
+                </div>
+                <button id="btn-apply-config" class="btn primary" style="width: 100%;">APPLY CONFIGURATION</button>
+            </div>
+            
+            <div class="config-column panel" style="margin: 0; padding: 12px; grid-column: 2 / span 2;">
+                <h3 style="font-size: 11px; margin: 0 0 12px 0; color: var(--text-secondary); text-transform: uppercase;">ACTIVE CONFIGURATION</h3>
+                <div style="display: grid; grid-template-columns: 120px 1fr; gap: 8px; font-size: 13px;">
+                    <span style="color: var(--text-muted);">Scenario:</span>
+                    <span id="active-scenario-val" class="highlight-blue">-</span>
+                    
+                    <span style="color: var(--text-muted);">Algorithm:</span>
+                    <span id="active-algorithm-val" class="highlight-blue">-</span>
+                    
+                    <span style="color: var(--text-muted);">Bands:</span>
+                    <span id="active-bands-val">-</span>
+                    
+                    <span style="color: var(--text-muted);">Receivers:</span>
+                    <span id="active-receivers-val">-</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="dashboard-hierarchy">
+        <!-- OBSERVATION LAYER (Secondary) -->
+        <section class="tier observation-tier">
+            <div class="tier-label">1. OBSERVATION LAYER</div>
+            <div class="observation-container">
+                <div class="panel spectrum-panel">
+                    <div class="spectrum-header">
+                        <h2>Spectrum Activity</h2>
+                        <div class="badge warning spectrum-badge">SYNTHETIC / REPLAY</div>
+                    </div>
+                    <div class="spectrum-axis">
+                        <span class="axis-label">LOW</span>
+                        <div class="axis-line"></div>
+                        <span class="axis-label">HIGH</span>
+                    </div>
+                    <div id="spectrum-container" class="spectrum">
+                        <!-- dynamically injected bands -->
+                    </div>
+                    <div class="spectrum-legend">
+                        <div class="legend-item"><span class="legend-indicator detect-legend">●</span> DETECTION</div>
+                        <div class="legend-item"><span class="legend-indicator scan-legend">▌</span> CURRENT SCAN</div>
+                        <div class="legend-item"><span class="legend-indicator inactive-legend">○</span> INACTIVE</div>
+                    </div>
+                </div>
+                <div class="panel map-panel">
+                    <div class="spectrum-header">
+                        <h2>Multi-Receiver Spatial Map</h2>
+                        <div class="badge warning spectrum-badge">SYNTHETIC ENVIRONMENT GROUND TRUTH</div>
+                    </div>
+                    <div id="map-container" class="map">
+                        <!-- dynamically injected map objects -->
+                    </div>
+                    <div class="map-legend">
+                        <div class="legend-item"><span class="legend-indicator rx-legend">◉</span> RECEIVER</div>
+                        <div class="legend-item"><span class="legend-indicator tx-legend">◆</span> EMITTER</div>
+                        <div class="legend-item"><span class="legend-indicator rx-active-legend">◉</span> SELECTED</div>
+                        <div class="legend-item"><span class="legend-indicator spatial-legend">★</span> SPATIAL INFLUENCE</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PIPELINE LAYER (New Phase F) -->
+        <section class="tier pipeline-tier">
+            <div class="tier-label">1.5 COGNITIVE PIPELINE</div>
+            <div class="pipeline-disclaimer" style="font-size: 10px; color: var(--text-muted); margin-bottom: 8px;">
+                CONCEPTUAL PRESENTATION FLOW: Animation illustrates the system reasoning stages; it does not represent backend processing time.
+            </div>
+            <div class="pipeline-container panel">
+                <div class="pipeline">
+                    <div class="pipe-stage" id="pipe-obs">
+                        <div class="pipe-name">RF ENVIRONMENT</div>
+                        <div class="pipe-desc">Observable state</div>
+                    </div>
+                    <div class="pipe-arrow">→</div>
+                    <div class="pipe-stage" id="pipe-rx">
+                        <div class="pipe-name">RECEIVER OBSERVATION</div>
+                        <div class="pipe-desc">Scan results</div>
+                    </div>
+                    <div class="pipe-arrow">→</div>
+                    <div class="pipe-stage" id="pipe-belief">
+                        <div class="pipe-name">BELIEF UPDATE</div>
+                        <div class="pipe-desc">Evidence tracking</div>
+                    </div>
+                    <div class="pipe-arrow">→</div>
+                    <div class="pipe-stage" id="pipe-temp">
+                        <div class="pipe-name">TEMPORAL / PREDICTIVE</div>
+                        <div class="pipe-desc" id="pipe-temp-val">Uses exposed telemetry</div>
+                    </div>
+                    <div class="pipe-arrow">→</div>
+                    <div class="pipe-stage" id="pipe-pat">
+                        <div class="pipe-name">PATTERN / SPATIAL</div>
+                        <div class="pipe-desc" id="pipe-pat-val">Conceptual stage</div>
+                    </div>
+                    <div class="pipe-arrow">→</div>
+                    <div class="pipe-stage" id="pipe-dec">
+                        <div class="pipe-name">SCAN DECISION</div>
+                        <div class="pipe-desc">Choose target</div>
+                    </div>
+                    <div class="pipe-arrow">→</div>
+                    <div class="pipe-stage" id="pipe-res">
+                        <div class="pipe-name">OBSERVATION RESULT</div>
+                        <div class="pipe-desc">DETECTED / NO DETECT</div>
+                    </div>
+                    <div class="pipe-arrow">→</div>
+                    <div class="pipe-stage" id="pipe-adapt">
+                        <div class="pipe-name">ADAPT</div>
+                        <div class="pipe-desc">Update internal state</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DECISION LAYER (Primary) -->
+        <section class="tier decision-tier">
+            <div class="tier-label">2. COGNITIVE INTELLIGENCE LAYER</div>
+            <div class="decision-container" style="grid-template-columns: 1fr 1.3fr 1.3fr;">
+                <div class="decision-panel panel primary-decision">
+                    <h2>CURRENT DECISION</h2>
+                    <div class="state-metrics" style="display: flex; flex-direction: column; gap: 16px;">
+                        <div class="state-metric">
+                            <span class="state-label">Selected Receiver</span>
+                            <span class="state-value highlight-blue" id="dec-rx-val">-</span>
+                        </div>
+                        <div class="state-metric">
+                            <span class="state-label">Selected Band</span>
+                            <span class="state-value highlight-blue" id="dec-band-val">-</span>
+                        </div>
+                        <div class="state-metric">
+                            <span class="state-label">Decision State</span>
+                            <span class="state-value highlight-blue" id="dec-state-val">-</span>
+                        </div>
+                        <div class="state-metric">
+                            <span class="state-label">Next Action</span>
+                            <span class="state-value highlight-blue" id="dec-next-val">AWAITING START...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="decision-explainability panel">
+                    <h2>WHY THIS ACTION?</h2>
+                    <div class="why-grid">
+                        <div class="why-item"><span class="why-lbl">Receiver</span><span class="why-val highlight-blue" id="why-rx">-</span></div>
+                        <div class="why-item"><span class="why-lbl">Band</span><span class="why-val highlight-blue" id="why-band">-</span></div>
+                        <div class="why-item"><span class="why-lbl">Current belief</span><span class="why-val" id="why-belief">-</span></div>
+                        <div class="why-item"><span class="why-lbl">Uncertainty</span><span class="why-val" id="why-uncertainty">-</span></div>
+                        <div class="why-item"><span class="why-lbl">Temporal evidence</span><span class="why-val" id="why-temporal">-</span></div>
+                        <div class="why-item"><span class="why-lbl">Prediction evidence</span><span class="why-val" id="why-pred">-</span></div>
+                        <div class="why-item"><span class="why-lbl">Prediction confidence</span><span class="why-val" id="why-pred-conf">-</span></div>
+                        <div class="why-item"><span class="why-lbl">Pattern score</span><span class="why-val" id="why-pattern">-</span></div>
+                        <div class="why-item"><span class="why-lbl">Spatial influence</span><span class="why-val" id="why-spatial">N/A</span></div>
+                        <div class="why-item"><span class="why-lbl">Staleness</span><span class="why-val" id="why-staleness">-</span></div>
+                        <div class="why-item"><span class="why-lbl">Hop probability</span><span class="why-val" id="why-hop">-</span></div>
+                        <div class="why-item"><span class="why-lbl">Decision State</span><span class="why-val" id="why-state">-</span></div>
+                    </div>
+                    <div class="why-summary" id="why-summary">
+                        Awaiting data...
+                    </div>
+                </div>
+                <div class="priority-panel panel">
+                    <h2>ADAPTIVE PRIORITY LIST</h2>
+                    <div style="overflow-x: auto; max-height: 280px; overflow-y: auto;">
+                        <table class="bench-table" id="priority-list-table" style="width: 100%; text-align: left; font-size: 12px;">
+                            <thead>
+                                <tr>
+                                    <th style="padding: 8px 10px;">RANK</th>
+                                    <th style="padding: 8px 10px;">BAND</th>
+                                    <th style="padding: 8px 10px;">PRIORITY SCORE</th>
+                                    <th style="padding: 8px 10px;">STATUS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="priority-list-body">
+                                <tr>
+                                    <td colspan="4" style="text-align: center; color: var(--text-dark); padding: 16px;">Awaiting decision...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- OUTCOME LAYER (Tertiary) -->
+        <section class="tier outcome-tier">
+            <div class="tier-label">3. PERFORMANCE OUTCOMES & ANALYTICS</div>
+            <div class="outcome-container">
+                <div class="panel perf-panel">
+                    <h2>Performance (Synthetic / Replay)</h2>
+                    <div class="metric-grid compact">
+                        <div class="metric"><span class="label">Interception Rate</span><span class="value" id="perf-ir">0.00%</span></div>
+                        <div class="metric"><span class="label">Total Obs</span><span class="value" id="perf-obs">0</span></div>
+                        <div class="metric"><span class="label">Detections</span><span class="value" id="perf-det">0</span></div>
+                        <div class="metric"><span class="label">Exploration</span><span class="value" id="perf-explor">0</span></div>
+                        <div class="metric"><span class="label">Exploitation</span><span class="value" id="perf-exploit">0</span></div>
+                        <div class="metric"><span class="label">Spatial Influenced</span><span class="value" id="perf-spatial">0</span></div>
+                    </div>
+                </div>
+                <div class="panel intercept-panel">
+                    <h2>Interception Events</h2>
+                    <div class="metric-grid compact">
+                        <div class="metric"><span class="label">Mean Latency</span><span class="value" id="it-mean">-</span></div>
+                        <div class="metric"><span class="label">Median Latency</span><span class="value" id="it-median">-</span></div>
+                        <div class="metric"><span class="label">Eligible</span><span class="value" id="it-eligible">0</span></div>
+                        <div class="metric"><span class="label">Intercepted</span><span class="value" id="it-intercepted">0</span></div>
+                        <div class="metric"><span class="label">Missed</span><span class="value" id="it-missed">0</span></div>
+                    </div>
+                </div>
+                <div class="panel log-panel" style="grid-column: span 12;">
+                    <h2>Live Event Stream</h2>
+                    <div id="event-log" class="log-container small-log">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ANALYTICS LAYER (NEW PHASE A) -->
+        <section class="tier analytics-tier">
+            <div class="tier-label">4. LIVE ANALYTICS DASHBOARD</div>
+            
+            <!-- Missing Data Dependency Warnings -->
+            <div class="missing-deps-banner">
+                <div class="dep-warning"><strong>NEXT PREDICTED SCAN:</strong> Not exposed by backend API. Scheduler only returns executed actions.</div>
+                <div class="dep-warning"><strong>NEXT TARGET:</strong> Not exposed by backend API. Target is not predicted ahead of step.</div>
+                <div class="dep-warning"><strong>SIGNAL STRENGTH:</strong> Not exposed by backend API. Receiver returns boolean detection only (no SNR/amplitude).</div>
+            </div>
+
+            <div class="analytics-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 16px;">
+                <div class="panel analytics-panel">
+                    <h2>Outcome Timeline (Rolling)</h2>
+                    <div style="position: relative; height: 200px; width: 100%;">
+                        <canvas id="outcomeChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="panel analytics-panel">
+                    <h2>Execution Speed</h2>
+                    <div style="position: relative; height: 200px; width: 100%;">
+                        <canvas id="speedChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="panel analytics-panel" style="grid-column: span 2;">
+                    <h2>Tuned Band History</h2>
+                    <div style="position: relative; height: 150px; width: 100%;">
+                        <canvas id="bandChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHASE C: PER-BAND ANALYTICS -->
+        <section class="tier per-band-tier">
+            <div class="tier-label">5. PER-BAND ANALYTICS & COMPARISON</div>
+            <div class="per-band-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 16px;">
+                
+                <!-- ALL BANDS ANALYTICS -->
+                <div class="panel all-bands-panel" style="grid-column: span 2;">
+                    <h2>Per-Band Analytics</h2>
+                    <div style="overflow-x: auto;">
+                        <table class="bench-table" id="all-bands-table" style="width: 100%; text-align: left; font-size: 13px;">
+                            <thead>
+                                <tr>
+                                    <th>Band</th>
+                                    <th>Belief</th>
+                                    <th>Uncertainty</th>
+                                    <th>Staleness</th>
+                                    <th>Temporal</th>
+                                    <th>Prediction</th>
+                                    <th>Pred. Conf</th>
+                                    <th>Hop Prob</th>
+                                    <th>Obs.</th>
+                                    <th>Det.</th>
+                                </tr>
+                            </thead>
+                            <tbody id="all-bands-body">
+                                <!-- Dynamically populated -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- CURRENT BAND ANALYSIS -->
+                <div class="panel current-band-panel">
+                    <h2>Current Band Analysis</h2>
+                    <div id="current-band-analysis-content" style="display: flex; flex-direction: column; gap: 8px;">
+                        <div style="font-size: 12px; color: var(--text-muted);">Awaiting selection...</div>
+                    </div>
+                </div>
+
+                <!-- NEAREST-5 BAND COMPARISON -->
+                <div class="panel nearest-bands-panel">
+                    <h2>Nearest-5 Band Comparison</h2>
+                    <div style="overflow-x: auto;">
+                        <table class="bench-table" id="nearest-bands-table" style="width: 100%; text-align: left; font-size: 13px;">
+                            <thead>
+                                <tr>
+                                    <th>Band</th>
+                                    <th>Belief</th>
+                                    <th>Obs.</th>
+                                    <th>Det.</th>
+                                </tr>
+                            </thead>
+                            <tbody id="nearest-bands-body">
+                                <!-- Dynamically populated -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- PHASE D: DECISION HISTORY & EVIDENCE TIMELINE -->
+        <section class="tier history-tier">
+            <div class="tier-label">6. DECISION HISTORY & EVIDENCE TIMELINE</div>
+            <div class="history-container" style="display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 16px;">
+                <div class="panel history-panel">
+                    <h2>Recent Decisions & Evidence Timeline (Last 50 Steps)</h2>
+                    <div style="overflow-y: auto; max-height: 250px;">
+                        <table class="bench-table" id="history-table" style="width: 100%; text-align: left; font-size: 13px;">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Receiver</th>
+                                    <th>Band</th>
+                                    <th>Result</th>
+                                    <th>Belief Ev.</th>
+                                    <th>Temporal Ev.</th>
+                                    <th>Prediction Ev.</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-body">
+                                <!-- Dynamically populated -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHASE E: RUN SUMMARY & SESSION COMPARISON -->
+        <section class="tier comparison-tier">
+            <div class="tier-label">7. SESSION HISTORY & RUN COMPARISON</div>
+            <div class="comparison-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 16px;">
+                
+                <div class="panel run-summary-panel">
+                    <h2>Session History (Last 5 Runs)</h2>
+                    <div style="overflow-x: auto;">
+                        <table class="bench-table" id="session-history-table" style="width: 100%; text-align: left; font-size: 13px;">
+                            <thead>
+                                <tr>
+                                    <th>Run ID</th>
+                                    <th>Scenario</th>
+                                    <th>Algorithm</th>
+                                    <th>Steps</th>
+                                    <th>IR</th>
+                                </tr>
+                            </thead>
+                            <tbody id="session-history-body">
+                                <tr><td colspan="5" style="text-align: center; color: var(--text-muted);">No completed runs yet. Reset to save a run.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="panel run-comparison-panel">
+                    <h2>Run Comparison</h2>
+                    <div style="display: flex; gap: 10px; margin-bottom: 12px; font-size: 12px;">
+                        <select id="compare-run-1" class="form-select" style="flex: 1; padding: 4px; background: #161b22; color: #c9d1d9; border: 1px solid #30363d; border-radius: 4px;">
+                            <option value="">Select Run 1...</option>
+                        </select>
+                        <select id="compare-run-2" class="form-select" style="flex: 1; padding: 4px; background: #161b22; color: #c9d1d9; border: 1px solid #30363d; border-radius: 4px;">
+                            <option value="">Select Run 2...</option>
+                        </select>
+                    </div>
+                    <div id="comparison-results" style="display: none;">
+                        <table class="bench-table" style="width: 100%; text-align: left; font-size: 13px;">
+                            <thead>
+                                <tr>
+                                    <th>Metric</th>
+                                    <th id="compare-th-1">Run 1</th>
+                                    <th id="compare-th-2">Run 2</th>
+                                </tr>
+                            </thead>
+                            <tbody id="comparison-body">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                        <div id="compare-warning" class="dep-warning" style="margin-top: 10px; font-size: 11px; display: none; color: #F59E0B; background-color: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); padding: 8px; border-radius: 4px;">
+                            <strong>NOTE:</strong> These runs have different scenarios or duration. Direct comparison may not be meaningful.
+                        </div>
+                    </div>
+                    <div id="comparison-empty" style="text-align: center; color: var(--text-muted); font-size: 13px; padding: 20px;">
+                        Select two runs from the dropdowns to compare.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- BENCHMARK LAYER (Quaternary) -->
+        <section class="tier benchmark-tier">
+            <div class="tier-label">8. REFERENCE BENCHMARK (STATIC)</div>
+            <div class="benchmark-container" style="display: grid; grid-template-columns: 1fr;">
+                <div class="panel arch-panel reference-panel">
+                    <h2>Reference Benchmark</h2>
+                    <div class="real-data-status">
+                        <div><strong>REAL RF/PDW DATA:</strong> <span style="color: #EF4444">NOT VALIDATED</span></div>
+                        <div><strong>AUTHORIZED DATASET:</strong> <span style="color: #EF4444">NOT AVAILABLE</span></div>
+                        <div><strong>PDW INTEGRATION:</strong> <span style="color: #10B981">READY</span></div>
+                    </div>
+                    <table class="bench-table mt-10">
+                        <thead>
+                            <tr><th>Algorithm</th><th>IR</th><th>Miss</th><th>FA</th><th>Efficiency</th></tr>
+                        </thead>
+                        <tbody id="bench-body">
+                            <!-- Loaded dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TSRD SYNTHETIC DATASET VALIDATION & COMMON-TRACE EVALUATION -->
+        <section class="tier benchmark-tier" style="margin-top: 24px;">
+            <div class="tier-label">9. TSRD SYNTHETIC RADAR DATASET EVALUATION</div>
+            <div class="panel arch-panel" style="background: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 6px; padding: 18px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                    <div>
+                        <h2 style="margin: 0; font-size: 16px; color: var(--text-primary); letter-spacing: 0.5px;">Turing Synthetic Radar Dataset (TSRD) Pipeline</h2>
+                        <span style="font-size: 12px; color: var(--text-muted);">Counterfactual & Causal Replay Evaluation against Controlled Synthetic PDWs</span>
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <span class="badge warning" style="font-size: 11px;">SCHEMA-COMPATIBLE FIXTURE</span>
+                        <span class="badge" style="background: rgba(14, 165, 233, 0.15); color: #0EA5E9; border: 1px solid #0EA5E9; font-size: 11px;">OFFICIAL TSRD: PENDING</span>
+                        <span class="badge danger" style="font-size: 11px;">REAL RF: NOT VALIDATED</span>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 16px;">
+                    <div>
+                        <label style="font-size: 12px; font-weight: 600; color: var(--text-secondary); display: block; margin-bottom: 6px;">SELECT DATASET FIXTURE / PATH:</label>
+                        <div style="display: flex; gap: 8px;">
+                            <select id="tsrd-file-select" class="form-control" style="flex: 1; padding: 6px 10px; background: var(--bg-dark); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 4px;">
+                                <option value="data/tsrd_fixtures/sample_stare.h5">TSRD STARE Mode Fixture (sample_stare.h5 — Causal Ready)</option>
+                                <option value="data/tsrd_fixtures/sample_scan.h5">TSRD SCAN Mode Fixture (sample_scan.h5 — Historical Scan Only)</option>
+                                <option value="data/tsrd_fixtures/sample_pdws.json">Normalized JSON PDW Fixture (sample_pdws.json)</option>
+                                <option value="data/tsrd_fixtures/sample_pdws.csv">Normalized CSV PDW Fixture (sample_pdws.csv)</option>
+                            </select>
+                            <button id="btn-tsrd-validate" class="btn" style="padding: 6px 14px; font-size: 12px; font-weight: 600; background: var(--accent-blue); color: white; border: none; border-radius: 4px; cursor: pointer;">VALIDATE</button>
+                            <button id="btn-tsrd-preview" class="btn" style="padding: 6px 14px; font-size: 12px; font-weight: 600; background: var(--border-color); color: var(--text-primary); border: none; border-radius: 4px; cursor: pointer;">PREVIEW</button>
+                            <button id="btn-tsrd-benchmark" class="btn primary" style="padding: 6px 14px; font-size: 12px; font-weight: 600; background: var(--accent-green); color: black; border: none; border-radius: 4px; cursor: pointer;">RUN COMMON-TRACE</button>
+                        </div>
+                    </div>
+                    <div style="background: rgba(0, 0, 0, 0.25); border: 1px solid var(--border-color); border-radius: 4px; padding: 8px 12px; font-size: 11px;">
+                        <div><strong>SCHEDULER VISIBLE:</strong> ToA, Freq, PW, AoA, Amplitude</div>
+                        <div style="color: var(--accent-yellow);"><strong>EVALUATOR ONLY:</strong> Emitter Labels, Future State</div>
+                        <div style="color: var(--accent-cyan);"><strong>UNITS:</strong> Internal Seconds, Ingested Microseconds</div>
+                    </div>
+                </div>
+
+                <div id="tsrd-status-area" style="display: none; margin-bottom: 16px; padding: 12px; border-radius: 4px; font-family: monospace; font-size: 12px; line-height: 1.5; white-space: pre-wrap; max-height: 180px; overflow-y: auto; background: #0B0F19; border: 1px solid var(--border-color);"></div>
+
+                <div id="tsrd-results-table-container" style="display: none;">
+                    <h3 style="font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;">COMMON-TRACE BENCHMARK COMPARISON</h3>
+                    <table class="bench-table" style="width: 100%; text-align: left; font-size: 12px;">
+                        <thead>
+                            <tr>
+                                <th>Scheduler Strategy</th>
+                                <th>Scans</th>
+                                <th>Hits / Opp</th>
+                                <th>Interception (P_d)</th>
+                                <th>False Alarm (P_fa)</th>
+                                <th>Efficiency</th>
+                                <th>Mean Intercept Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tsrd-results-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHASE 6: USER DATASET IMPORT, VALIDATION & REPLAY WORKFLOW -->
+        <section class="tier dataset-workflow-tier" style="margin-top: 24px;">
+            <div class="tier-label">10. USER DATASET IMPORT, VALIDATION & REPLAY WORKFLOW</div>
+            <div class="panel arch-panel" style="background: var(--bg-panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px;">
+                
+                <!-- Section Header -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 12px;">
+                    <div>
+                        <h2 style="margin: 0; font-size: 16px; color: var(--text-main); letter-spacing: 0.5px; font-weight: 700;">USER DATASET REPLAY CONSOLE</h2>
+                        <span style="font-size: 12px; color: var(--text-muted);">Causal Ingestion, Explicit Unit Normalization & Frozen SpatialScheduler Replay</span>
+                    </div>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <span id="workflow-mode-badge" class="badge" style="background: rgba(14, 165, 233, 0.15); color: #0EA5E9; border: 1px solid #0EA5E9; font-size: 11px;">MODE: DATASET REPLAY READY</span>
+                        <span class="badge danger" style="font-size: 11px;">REAL RF: NOT VALIDATED</span>
+                    </div>
+                </div>
+
+                <!-- STEP 1: Select / Upload Dataset -->
+                <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 4px; padding: 14px; margin-bottom: 16px;">
+                    <div style="font-size: 12px; font-weight: 700; color: var(--accent-core); margin-bottom: 8px; letter-spacing: 0.5px;">STEP 1: SELECT OR UPLOAD DATASET (CSV / JSON / HDF5)</div>
+                    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 16px; align-items: end;">
+                        <div>
+                            <label style="font-size: 11px; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 4px;">LOCAL FIXTURE OR RECENT UPLOAD:</label>
+                            <div style="display: flex; gap: 8px;">
+                                <select id="dataset-file-select" class="form-control" style="flex: 1; padding: 6px 10px; background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border); border-radius: 4px; font-size: 12px;">
+                                    <option value="data/tsrd_fixtures/sample_pdws.csv">sample_pdws.csv (Normalized CSV Fixture)</option>
+                                    <option value="data/tsrd_fixtures/sample_pdws.json">sample_pdws.json (Normalized JSON Fixture)</option>
+                                    <option value="data/tsrd_fixtures/sample_stare.h5">sample_stare.h5 (TSRD HDF5 Stare Fixture)</option>
+                                    <option value="data/tsrd_fixtures/sample_scan.h5">sample_scan.h5 (TSRD HDF5 Scan Fixture)</option>
+                                </select>
+                                <button id="btn-inspect-selected" class="btn primary" style="padding: 6px 14px; font-size: 12px; font-weight: 600;">INSPECT</button>
+                            </div>
+                        </div>
+                        <div>
+                            <label style="font-size: 11px; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 4px;">OR UPLOAD NEW FILE:</label>
+                            <div style="display: flex; gap: 8px;">
+                                <input type="file" id="dataset-file-input" accept=".csv,.json,.h5,.hdf5" style="display: none;">
+                                <button id="btn-choose-file" class="btn" style="flex: 1; padding: 6px 10px; font-size: 12px; border: 1px dashed var(--border); background: var(--bg-main); color: var(--text-main); text-align: left; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">Choose file (.csv, .json, .h5)...</button>
+                                <button id="btn-upload-file" class="btn" style="padding: 6px 14px; font-size: 12px; font-weight: 600;">UPLOAD</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 2: Field Mapping & Explicit Units (Displayed upon inspection) -->
+                <div id="dataset-mapping-panel" style="display: none; background: var(--bg-card); border: 1px solid var(--border); border-radius: 4px; padding: 14px; margin-bottom: 16px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 8px;">
+                        <div style="font-size: 12px; font-weight: 700; color: var(--accent-core); letter-spacing: 0.5px;">STEP 2: MAP FIELDS & DECLARE UNITS</div>
+                        <div style="font-size: 11px; color: var(--text-muted);" id="dataset-source-indicator">Source: -</div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 14px;">
+                        <!-- Timestamp -->
+                        <div style="background: var(--bg-main); border: 1px solid var(--border); border-radius: 4px; padding: 10px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                <label style="font-size: 11px; font-weight: 700; color: var(--text-main);">Timestamp (ToA) *</label>
+                                <span style="font-size: 10px; color: var(--accent-core);">Required → s</span>
+                            </div>
+                            <div style="display: flex; gap: 6px;">
+                                <select id="map-timestamp" class="form-control" style="flex: 2; padding: 4px 8px; font-size: 12px; background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border); border-radius: 3px;"></select>
+                                <select id="unit-timestamp" class="form-control" style="flex: 1; padding: 4px 8px; font-size: 12px; background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border); border-radius: 3px;">
+                                    <option value="s" selected>s</option>
+                                    <option value="ms">ms</option>
+                                    <option value="us">us</option>
+                                    <option value="ns">ns</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Frequency -->
+                        <div style="background: var(--bg-main); border: 1px solid var(--border); border-radius: 4px; padding: 10px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                <label style="font-size: 11px; font-weight: 700; color: var(--text-main);">Frequency (FoA) *</label>
+                                <span style="font-size: 10px; color: var(--accent-core);">Required → MHz</span>
+                            </div>
+                            <div style="display: flex; gap: 6px;">
+                                <select id="map-frequency" class="form-control" style="flex: 2; padding: 4px 8px; font-size: 12px; background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border); border-radius: 3px;"></select>
+                                <select id="unit-frequency" class="form-control" style="flex: 1; padding: 4px 8px; font-size: 12px; background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border); border-radius: 3px;">
+                                    <option value="MHz" selected>MHz</option>
+                                    <option value="GHz">GHz</option>
+                                    <option value="kHz">kHz</option>
+                                    <option value="Hz">Hz</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Pulse Width -->
+                        <div style="background: var(--bg-main); border: 1px solid var(--border); border-radius: 4px; padding: 10px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                <label style="font-size: 11px; font-weight: 700; color: var(--text-main);">Pulse Width (PW)</label>
+                                <span style="font-size: 10px; color: var(--text-muted);">Optional → us</span>
+                            </div>
+                            <div style="display: flex; gap: 6px;">
+                                <select id="map-pw" class="form-control" style="flex: 2; padding: 4px 8px; font-size: 12px; background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border); border-radius: 3px;"></select>
+                                <select id="unit-pw" class="form-control" style="flex: 1; padding: 4px 8px; font-size: 12px; background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border); border-radius: 3px;">
+                                    <option value="us" selected>us</option>
+                                    <option value="ns">ns</option>
+                                    <option value="ms">ms</option>
+                                    <option value="s">s</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Angle of Arrival -->
+                        <div style="background: var(--bg-main); border: 1px solid var(--border); border-radius: 4px; padding: 10px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                <label style="font-size: 11px; font-weight: 700; color: var(--text-main);">Angle of Arrival (AoA)</label>
+                                <span style="font-size: 10px; color: var(--text-muted);">Optional → deg</span>
+                            </div>
+                            <div style="display: flex; gap: 6px;">
+                                <select id="map-aoa" class="form-control" style="flex: 2; padding: 4px 8px; font-size: 12px; background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border); border-radius: 3px;"></select>
+                                <select id="unit-aoa" class="form-control" style="flex: 1; padding: 4px 8px; font-size: 12px; background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border); border-radius: 3px;">
+                                    <option value="deg" selected>deg</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Amplitude -->
+                        <div style="background: var(--bg-main); border: 1px solid var(--border); border-radius: 4px; padding: 10px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                <label style="font-size: 11px; font-weight: 700; color: var(--text-main);">Amplitude (Power)</label>
+                                <span style="font-size: 10px; color: var(--text-muted);">Optional → dBm</span>
+                            </div>
+                            <div style="display: flex; gap: 6px;">
+                                <select id="map-amplitude" class="form-control" style="flex: 2; padding: 4px 8px; font-size: 12px; background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border); border-radius: 3px;"></select>
+                                <select id="unit-amplitude" class="form-control" style="flex: 1; padding: 4px 8px; font-size: 12px; background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border); border-radius: 3px;">
+                                    <option value="dBm" selected>dBm</option>
+                                    <option value="dB">dB</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Emitter Label (Evaluator Only) -->
+                        <div style="background: var(--bg-main); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 4px; padding: 10px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                <label style="font-size: 11px; font-weight: 700; color: #F59E0B;">Emitter Label</label>
+                                <span style="font-size: 10px; color: #F59E0B; font-weight: 700;">[EVALUATOR ONLY]</span>
+                            </div>
+                            <div style="display: flex; gap: 6px;">
+                                <select id="map-emitter" class="form-control" style="flex: 1; padding: 4px 8px; font-size: 12px; background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border); border-radius: 3px;"></select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: flex-end; gap: 10px;">
+                        <button id="btn-validate-dataset" class="btn primary" style="padding: 8px 18px; font-size: 12px; font-weight: 700; letter-spacing: 0.5px;">VALIDATE DATASET</button>
+                    </div>
+                </div>
+
+                <!-- STEP 3: Validation Report -->
+                <div id="dataset-validation-area" style="display: none; background: var(--bg-card); border: 1px solid var(--border); border-radius: 4px; padding: 14px; margin-bottom: 16px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <div style="font-size: 12px; font-weight: 700; color: var(--accent-core); letter-spacing: 0.5px;">STEP 3: VALIDATION REPORT</div>
+                        <span id="validation-badge" class="badge" style="font-size: 11px;">PENDING</span>
+                    </div>
+                    <div id="validation-text-log" style="font-family: monospace; font-size: 12px; line-height: 1.5; white-space: pre-wrap; background: var(--bg-main); border: 1px solid var(--border); border-radius: 4px; padding: 12px; max-height: 180px; overflow-y: auto;"></div>
+                </div>
+
+                <!-- STEP 4: Run Configuration & Execution -->
+                <div id="dataset-run-config-panel" style="display: none; background: var(--bg-card); border: 1px solid var(--border); border-radius: 4px; padding: 14px; margin-bottom: 16px;">
+                    <div style="font-size: 12px; font-weight: 700; color: var(--accent-core); margin-bottom: 12px; letter-spacing: 0.5px;">STEP 4: REPLAY RUN CONFIGURATION</div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 16px;">
+                        <div>
+                            <label style="font-size: 11px; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 4px;">SEED:</label>
+                            <input type="number" id="ds-run-seed" value="42" style="width: 100%; box-sizing: border-box; padding: 6px; background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border); border-radius: 3px; font-size: 12px;">
+                        </div>
+                        <div>
+                            <label style="font-size: 11px; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 4px;">STEPS:</label>
+                            <input type="number" id="ds-run-steps" value="100" min="1" max="1000" style="width: 100%; box-sizing: border-box; padding: 6px; background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border); border-radius: 3px; font-size: 12px;">
+                        </div>
+                        <div>
+                            <label style="font-size: 11px; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 4px;">DWELL TIME (s):</label>
+                            <input type="number" id="ds-run-dwell" value="0.005" step="0.001" min="0.0001" style="width: 100%; box-sizing: border-box; padding: 6px; background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border); border-radius: 3px; font-size: 12px;">
+                        </div>
+                        <div>
+                            <label style="font-size: 11px; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 4px;">INITIAL BAND:</label>
+                            <input type="number" id="ds-run-band" value="0" min="0" max="9" style="width: 100%; box-sizing: border-box; padding: 6px; background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border); border-radius: 3px; font-size: 12px;">
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content: flex-end; gap: 10px;">
+                        <button id="btn-run-dataset" class="btn primary" style="padding: 10px 24px; font-size: 13px; font-weight: 700; background: var(--success); color: #000; border: none; border-radius: 4px; cursor: pointer; letter-spacing: 0.5px;">RUN CASS-EW ON DATASET</button>
+                    </div>
+                </div>
+
+                <!-- STEP 5: Results & Audited Metrics Presentation -->
+                <div id="dataset-result-panel" style="display: none; background: var(--bg-card); border: 1px solid var(--border); border-radius: 4px; padding: 14px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 8px;">
+                        <div>
+                            <h3 style="margin: 0; font-size: 14px; color: var(--text-main); font-weight: 700;">DATASET REPLAY RESULTS</h3>
+                            <span style="font-size: 11px; color: var(--text-muted);">Audited CASS-EW metrics computed from causal replay execution</span>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button id="btn-export-json" class="btn" style="padding: 6px 14px; font-size: 12px; font-weight: 600;">EXPORT JSON</button>
+                        </div>
+                    </div>
+
+                    <!-- Metric Cards Grid -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 16px;">
+                        <div style="background: var(--bg-main); border: 1px solid var(--border); border-radius: 4px; padding: 10px;">
+                            <div style="font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Observation Opportunities</div>
+                            <div id="ds-res-opp" style="font-size: 18px; font-weight: 800; color: var(--text-main); margin-top: 4px;">-</div>
+                            <div style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">Energy physically in tuned band</div>
+                        </div>
+
+                        <div style="background: var(--bg-main); border: 1px solid var(--border); border-radius: 4px; padding: 10px;">
+                            <div style="font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Hits / Misses / FA</div>
+                            <div id="ds-res-counts" style="font-size: 18px; font-weight: 800; color: var(--success); margin-top: 4px;">-</div>
+                            <div style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">Hits / Miss / False Alarm</div>
+                        </div>
+
+                        <div style="background: var(--bg-main); border: 1px solid var(--border); border-radius: 4px; padding: 10px;">
+                            <div style="font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Receiver Pd</div>
+                            <div id="ds-res-pd" style="font-size: 18px; font-weight: 800; color: var(--accent-core); margin-top: 4px;">-</div>
+                            <div style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">Hits / Observation Opportunities</div>
+                        </div>
+
+                        <div style="background: var(--bg-main); border: 1px solid var(--border); border-radius: 4px; padding: 10px;">
+                            <div style="font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Receiver Pfa</div>
+                            <div id="ds-res-pfa" style="font-size: 18px; font-weight: 800; color: #F59E0B; margin-top: 4px;">-</div>
+                            <div style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">False Alarms / Quiet Scans</div>
+                        </div>
+
+                        <div style="background: var(--bg-main); border: 1px solid var(--border); border-radius: 4px; padding: 10px;">
+                            <div style="font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Scan Efficiency</div>
+                            <div id="ds-res-eff" style="font-size: 18px; font-weight: 800; color: var(--text-main); margin-top: 4px;">-</div>
+                            <div style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">Hits / Total Scans</div>
+                        </div>
+
+                        <div style="background: var(--bg-main); border: 1px solid var(--border); border-radius: 4px; padding: 10px;">
+                            <div style="font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Global Emitter Intercept</div>
+                            <div id="ds-res-ir" style="font-size: 18px; font-weight: 800; color: #10B981; margin-top: 4px;">-</div>
+                            <div style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">Unique Intercepted / Total Emitters</div>
+                        </div>
+                    </div>
+
+                    <!-- Scan History & Decisions Summary -->
+                    <div style="background: var(--bg-main); border: 1px solid var(--border); border-radius: 4px; padding: 12px; margin-bottom: 12px;">
+                        <div style="font-size: 11px; font-weight: 700; color: var(--text-main); margin-bottom: 6px;">SCAN DECISION & BAND DISTRIBUTION</div>
+                        <div id="ds-res-band-distribution" style="font-family: monospace; font-size: 12px; color: var(--text-muted);"></div>
+                    </div>
+
+                    <!-- Warnings & Limitations -->
+                    <div id="ds-res-warnings" style="display: none; background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 4px; padding: 10px; font-size: 11px; color: #F59E0B;"></div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/static/app.js"></script>
+</body>
+</html>

@@ -8,6 +8,12 @@ class SequentialScanner:
         self.num_bands = num_bands
         self.current_band = 0
 
+    def reset(self):
+        """
+        Reset scanner to starting band 0.
+        """
+        self.current_band = 0
+
     def get_action(self):
         band = self.current_band
 

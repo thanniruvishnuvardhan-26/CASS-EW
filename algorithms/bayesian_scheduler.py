@@ -9,10 +9,20 @@ class BayesianBelief:
         initial_probability=0.1
     ):
         self.num_bands = num_bands
+        self.initial_probability = initial_probability
 
         self.belief = (
             np.ones(num_bands)
             * initial_probability
+        )
+
+    def reset(self):
+        """
+        Reset beliefs to initial uniform prior.
+        """
+        self.belief = (
+            np.ones(self.num_bands)
+            * self.initial_probability
         )
 
     def update(self, band, detected):
@@ -56,6 +66,16 @@ class BayesianScheduler:
 
         self.visited = np.zeros(
             num_bands,
+            dtype=bool
+        )
+
+    def reset(self):
+        """
+        Reset scheduler state and underlying belief model.
+        """
+        self.belief_model.reset()
+        self.visited = np.zeros(
+            self.num_bands,
             dtype=bool
         )
 

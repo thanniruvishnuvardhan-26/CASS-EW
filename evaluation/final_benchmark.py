@@ -1,4 +1,11 @@
+import sys
+from pathlib import Path
 import numpy as np
+
+# Ensure project root is in sys.path
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
 from algorithms.baseline_scanner import SequentialScanner
 from algorithms.bayesian_scheduler import BayesianScheduler
@@ -310,26 +317,29 @@ def evaluate_bayesian(
 # RL TRAINING
 # ============================================================
 
-def train_rl():
+def train_rl(training_seed=None):
 
     scheduler = RLScheduler(
         NUM_BANDS,
         (1, 2, 3),
         0.1,
         0.9,
-        0.3
+        0.3,
+        seed=training_seed
     )
 
     for episode in range(300):
 
+        t_offset = (training_seed if training_seed is not None else 0) * 1000
+
         trace = generate_trace(
-            10000 + episode,
+            t_offset + 10000 + episode,
             300
         )
 
         detection_random, false_alarm_random = (
             generate_detector_trace(
-                20000 + episode
+                t_offset + 20000 + episode
             )
         )
 
